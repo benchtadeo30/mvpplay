@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MVPPlay</string>
+    <string name="info_text">Enjoy native <b>24-bit 192kHz FLAC</b> lossless streaming and low-latency offline staging.</string>
+    <string name="terms_text">I accept the <u>Listener Terms</u> &amp; spatial audio profile guidelines.</string>
+    <string name="podcast_matira_matibay__trailer">A Homeless person takes a challenge to win a million pesos will he survive all filipino games?.</string>
+    <string name="podcast_buhay_estudyante__ep1_pelikula">Our OCC Journey</string>
+    <string name="podcast_buhay_estudyante__ep2_pelikula">OCC Journey</string>
+</resources>

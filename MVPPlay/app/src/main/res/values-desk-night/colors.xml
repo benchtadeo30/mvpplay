@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="home_bg">#121212</color>
+    <color name="surface_card">#181818</color>
+    <color name="surface_field">#282828</color>
+    <color name="surface_tab">#1F1F1F</color>
+    <color name="surface_guest">#1F1F1F</color>
+    <color name="surface_info">#121212</color>
+    <color name="surface_pill">#1F1F1F</color>
+    <color name="surface_tag">#282828</color>
+    <color name="surface_segment">#3E3E3E</color>
+    <color name="play_btn_bg">#2A2A2A</color>
+    <color name="badge_bg">#14301F</color>
+    <color name="tag_lavender_bg">#123524</color>
+    <color name="overlay_badge">#CC121212</color>
+    <color name="hero_center">#121212</color>
+    <color name="nav_bar_bg">#000000</color>
+    <color name="divider">#2A2A2A</color>
+    <color name="toggle_on">#1DB954</color>
+    <color name="toggle_off">#535353</color>
+    <color name="ripple_ring">#FF1DB954</color>
+
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B3B3B3</color>
+    <color name="text_hint">#8A8A8A</color>
+    <color name="on_accent">#000000</color>
+
+    <color name="accent_purple">#1DB954</color>
+    <color name="accent_purple_light">#1ED760</color>
+    <color name="accent_cyan">#1DB954</color>
+    <color name="accent_cyan_light">#1ED760</color>
+    <color name="accent_lavender">#1ED760</color>
+    <color name="button_text">#000000</color>
+    <color name="brand_green">#1DB954</color>
+</resources>

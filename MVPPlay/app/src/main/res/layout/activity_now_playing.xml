@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_bg"
+    android:fitsSystemWindows="true"
+    android:id="@+id/npRoot"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/contentArea"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="8dp">
+
+        <!-- ============ TOP BAR ============ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="-12dp"
+                android:clickable="true"
+                android:contentDescription="Back"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/text_primary" />
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/bg_logo_circle"
+                android:clipToOutline="true"
+                android:contentDescription="MVPPLAY logo"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mvpplay_icon" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="Now Playing"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/btnEffects"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:contentDescription="Background effects"
+                android:focusable="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_effects"
+                app:tint="@color/text_secondary" />
+
+            <ImageView
+                android:id="@+id/btnMore"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:contentDescription="More"
+                android:focusable="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_more_vert"
+                app:tint="@color/text_secondary" />
+
+            <ImageView
+                android:id="@+id/btnProfile"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_avatar"
+                android:clickable="true"
+                android:contentDescription="Settings"
+                android:focusable="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_user"
+                app:tint="@color/white" />
+        </LinearLayout>
+
+        <!-- ============ PLAYING FROM ============ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_pill"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="7dp">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_equalizer"
+                app:tint="@color/accent_cyan_light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:letterSpacing="0.05"
+                android:id="@+id/tvPlayingFrom"
+                android:text="PLAYING FROM LIBRARY"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:id="@+id/tvPlayingFromName"
+                android:text="Your Music"
+                android:textColor="@color/accent_lavender"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- ============ COVER / VIDEO (takes all the free space, always fits) ============ -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/coverArea"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivCover"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_cover"
+                android:clipToOutline="true"
+                android:contentDescription="Album cover"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- spinning vinyl: same place and size as the square cover (music only) -->
+            <com.appdev.mvpplay.VinylView
+                android:id="@+id/vinylView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="Spinning record"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- small cover with floating music notes (fills the whole area so notes have room) -->
+            <com.appdev.mvpplay.NotesView
+                android:id="@+id/notesView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="Floating music notes"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- cassette tape: reels spin while playing -->
+            <com.appdev.mvpplay.CassetteView
+                android:id="@+id/cassetteView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="Cassette tape"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- floating 3D card: drag to tilt -->
+            <com.appdev.mvpplay.TiltCardView
+                android:id="@+id/tiltView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="Tilt card"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- invisible tap area for the "empty" style, so you can still tap to change view -->
+            <!-- the "empty" style: tap area plus tiny effects (pill and floating dust) -->
+            <com.appdev.mvpplay.AmbientView
+                android:id="@+id/emptyTap"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:contentDescription="Change view"
+                android:focusable="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextureView
+                android:id="@+id/textureVideo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/eqBadge"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_eq_badge"
+                android:padding="7dp"
+                android:src="@drawable/ic_equalizer"
+                app:layout_constraintEnd_toEndOf="@id/ivCover"
+                app:layout_constraintTop_toTopOf="@id/ivCover"
+                app:tint="@color/accent_cyan_light" />
+            <!-- expand to full screen (shown only while a video is on screen) -->
+            <ImageView
+                android:id="@+id/btnExpand"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_eq_badge"
+                android:clickable="true"
+                android:contentDescription="Full screen"
+                android:focusable="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_fullscreen"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/textureVideo"
+                app:layout_constraintEnd_toEndOf="@id/textureVideo"
+                app:tint="@color/accent_cyan_light" />
+
+            <!-- floating video window button (sits left of the expand button) -->
+            <ImageView
+                android:id="@+id/btnPip"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_eq_badge"
+                android:clickable="true"
+                android:contentDescription="Floating window"
+                android:focusable="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_pip"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/textureVideo"
+                app:layout_constraintEnd_toStartOf="@id/btnExpand"
+                app:tint="@color/accent_cyan_light" />
+
+            <!-- full screen layer: tap anywhere to hide or show the controls -->
+            <FrameLayout
+                android:id="@+id/fsOverlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:id="@+id/fsControls"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000">
+
+                    <ImageView
+                        android:id="@+id/btnExitFs"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_gravity="top|start"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/bg_eq_badge"
+                        android:clickable="true"
+                        android:contentDescription="Exit full screen"
+                        android:focusable="true"
+                        android:padding="11dp"
+                        android:src="@drawable/ic_fullscreen_exit"
+                        app:tint="@color/text_primary" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/fsPrev"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:clickable="true"
+                            android:contentDescription="Previous"
+                            android:focusable="true"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_skip_previous"
+                            app:tint="@color/text_primary" />
+
+                        <FrameLayout
+                            android:id="@+id/fsPlayPause"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:background="@drawable/bg_big_play"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <ImageView
+                                android:id="@+id/fsPlayIcon"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="Play or pause"
+                                android:src="@drawable/ic_play"
+                                app:tint="@color/button_text" />
+                        </FrameLayout>
+
+                        <ImageView
+                            android:id="@+id/fsNext"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:clickable="true"
+                            android:contentDescription="Next"
+                            android:focusable="true"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_skip_next"
+                            app:tint="@color/text_primary" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="12dp">
+
+                        <TextView
+                            android:id="@+id/fsElapsed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="00:00"
+                            android:textColor="@color/accent_cyan_light"
+                            android:textSize="13sp" />
+
+                        <SeekBar
+                            android:id="@+id/fsSeek"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:max="1000"
+                            android:progressBackgroundTint="#55FFFFFF"
+                            android:progressTint="@color/accent_cyan_light"
+                            android:thumbTint="#FFFFFF" />
+
+                        <TextView
+                            android:id="@+id/fsRemaining"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="-00:00"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </FrameLayout>
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- ============ PODCAST DESCRIPTION + EPISODES (only for podcast episodes) ============ -->
+        <LinearLayout
+            android:id="@+id/svDescription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:paddingStart="14dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.08"
+                    android:text="ABOUT THIS EPISODE"
+                    android:textColor="@color/text_hint"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvEpisodesLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="6dp"
+                android:text="Episodes"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNpEpisodes"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingBottom="4dp" />
+        </LinearLayout>
+
+        <!-- ============ TITLE + ARTIST + HEART ============ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:fadingEdgeLength="16dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:requiresFadingEdge="horizontal"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="Nothing playing"
+                    android:textColor="@color/text_primary"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/tvArtist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/accent_cyan_light"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivHeart"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/bg_play_btn"
+                android:clickable="true"
+                android:contentDescription="Like"
+                android:focusable="true"
+                android:padding="11dp"
+                android:src="@drawable/ic_favorite_border" />
+        </LinearLayout>
+
+        <!-- ============ TAGS (real file info) ============ -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_tag_cyan"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="4dp">
+
+                    <View
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:background="@drawable/bg_dot_cyan" />
+
+                    <TextView
+                        android:id="@+id/tvTagFormat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:fontFamily="monospace"
+                        android:letterSpacing="0.05"
+                        android:text="AUDIO"
+                        android:textColor="@color/accent_cyan_light"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvTagRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_tag_lavender"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.05"
+                    android:paddingStart="12dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/accent_lavender"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_tag_gray"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.05"
+                    android:paddingStart="12dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="4dp"
+                    android:text="LOCAL FILE"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- ============ WAVEFORM PROGRESS ============ -->
+        <com.appdev.mvpplay.WaveformView
+            android:id="@+id/waveform"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvElapsed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:text="00:00"
+                android:textColor="@color/accent_cyan_light"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvRemaining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="-00:00"
+                android:textColor="@color/text_hint"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- ============ CONTROLS ============ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/btnShuffle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivShuffle"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Shuffle"
+                    android:src="@drawable/ic_shuffle" />
+
+                <View
+                    android:id="@+id/dotShuffle"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/bg_dot_cyan"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btnPrev"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:contentDescription="Previous"
+                android:focusable="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_skip_previous"
+                app:tint="@color/text_primary" />
+
+            <FrameLayout
+                android:id="@+id/btnPlayPause"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_big_play"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/ivPlayPause"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="Play or pause"
+                    android:src="@drawable/ic_play"
+                    app:tint="@color/button_text" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/btnNext"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:contentDescription="Next"
+                android:focusable="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_skip_next"
+                app:tint="@color/text_primary" />
+
+            <LinearLayout
+                android:id="@+id/btnRepeat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivRepeat"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Repeat"
+                    android:src="@drawable/ic_repeat" />
+
+                <View
+                    android:id="@+id/dotRepeat"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/bg_dot_cyan"
+                    android:visibility="invisible" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ============ SHARE / SAVE / SLEEP ============ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/btnShare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_share"
+                    app:tint="@color/text_secondary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Share"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnSave"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_playlist_add"
+                    app:tint="@color/text_secondary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Save"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnSleep"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/ivSleep"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_dark_mode"
+                    app:tint="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvSleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Sleep"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

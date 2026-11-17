@@ -1,0 +1,24 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- the ring: a lavender-to-cyan circle, the dark circle on top leaves only its edge -->
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:angle="315"
+                android:endColor="#22D3EE"
+                android:startColor="#A78BFA"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- the dark middle -->
+    <item
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/hero_center" />
+        </shape>
+    </item>
+</layer-list>

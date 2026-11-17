@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_card"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <CheckBox
+        android:id="@+id/cbPick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/accent_purple"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/btnDrag"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="6dp"
+        android:contentDescription="Hold and drag to reorder"
+        android:padding="5dp"
+        android:src="@drawable/ic_drag_handle"
+        android:visibility="gone"
+        app:tint="@color/text_hint" />
+
+    <ImageView
+        android:id="@+id/vCover"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:clipToOutline="true"
+        android:contentDescription="Song cover"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:focusable="false"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvSub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_hint"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnRemove"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:contentDescription="Remove from playlist"
+        android:padding="8dp"
+        android:src="@drawable/ic_close"
+        android:visibility="gone"
+        app:tint="@color/text_hint" />
+
+    <ImageView
+        android:id="@+id/btnPlay"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:background="@drawable/bg_play_btn"
+        android:contentDescription="Play"
+        android:padding="11dp"
+        android:src="@drawable/ic_play"
+        app:tint="@color/text_primary" />
+</LinearLayout>

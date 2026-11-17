@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_card"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <CheckBox
+        android:id="@+id/cbPick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/accent_purple"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone" />
+
+    <!-- COVER (picture or gradient) + FORMAT LABEL -->
+    <FrameLayout
+        android:layout_width="56dp"
+        android:layout_height="56dp">
+
+        <ImageView
+            android:id="@+id/vCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToOutline="true"
+            android:contentDescription="Song cover"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tvFormat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:letterSpacing="0.1"
+            android:text="FLAC"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <!-- TITLE + ARTIST + BITRATE -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- the artist takes the leftover space and shortens with "..." -->
+            <TextView
+                android:id="@+id/tvArtist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/text_hint"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:maxLines="1"
+                android:text="•"
+                android:textColor="@color/text_hint"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/ivHeadphones"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_headphones" />
+
+            <!-- the bitrate never wraps -->
+            <TextView
+                android:id="@+id/tvPlays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="monospace"
+                android:maxLines="1"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- HI-RES BADGE (only for some songs) -->
+    <TextView
+        android:id="@+id/tvHiRes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/bg_hires"
+        android:gravity="center"
+        android:paddingStart="8dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="6dp"
+        android:text="HI-\nRES"
+        android:textColor="@color/accent_lavender"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <!-- DURATION -->
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="monospace"
+        android:maxLines="1"
+        android:textColor="@color/text_hint"
+        android:textSize="13sp" />
+
+    <!-- SAVE TO PLAYLIST -->
+    <ImageView
+        android:id="@+id/btnSave"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="2dp"
+        android:contentDescription="Save to playlist"
+        android:padding="7dp"
+        android:src="@drawable/ic_playlist_add"
+        app:tint="@color/text_hint" />
+
+    <!-- PLAY BUTTON -->
+    <ImageView
+        android:id="@+id/btnPlay"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:background="@drawable/bg_play_btn"
+        android:contentDescription="Play"
+        android:padding="11dp"
+        android:src="@drawable/ic_play"
+        app:tint="@color/text_primary" />
+</LinearLayout>

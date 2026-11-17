@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_cover"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volume"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivMute"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_play_btn"
+            android:clickable="true"
+            android:contentDescription="Mute or unmute"
+            android:focusable="true"
+            android:padding="11dp"
+            android:src="@drawable/ic_volume_up"
+            app:tint="@color/text_primary" />
+
+        <SeekBar
+            android:id="@+id/seekVolume"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:progressBackgroundTint="@color/surface_segment"
+            android:progressTint="@color/accent_cyan_light"
+            android:thumbTint="@color/accent_cyan_light" />
+
+        <TextView
+            android:id="@+id/tvVolumePercent"
+            android:layout_width="52dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="end"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+    </LinearLayout>
+</LinearLayout>
